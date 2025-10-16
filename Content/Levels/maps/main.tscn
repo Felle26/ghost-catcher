@@ -1,3 +1,88 @@
-[gd_scene format=3 uid="uid://cbrofrsicobv8"]
+[gd_scene load_steps=15 format=3 uid="uid://cbrofrsicobv8"]
+
+[ext_resource type="PackedScene" uid="uid://dkip12egxfhpo" path="res://Content/Graveyard Export/gLTF/Ground_4_3.glb" id="1_q5vny"]
+[ext_resource type="PackedScene" uid="uid://drgqr2ss2po3n" path="res://Content/Graveyard Export/gLTF/Ground_4_4.glb" id="2_vy1df"]
+[ext_resource type="PackedScene" uid="uid://blvrvt5sv7nft" path="res://Content/Graveyard Export/gLTF/Ground_4_5.glb" id="3_2c0su"]
+[ext_resource type="PackedScene" uid="uid://bjnwddofnja63" path="res://Content/Graveyard Export/gLTF/Ground_4_2.glb" id="4_1s7jq"]
+[ext_resource type="PackedScene" uid="uid://bqc41yj8qdltk" path="res://Content/Graveyard Export/gLTF/Ground_3_1.glb" id="5_d3kkg"]
+[ext_resource type="PackedScene" uid="uid://bktxd2u7ii7u1" path="res://Content/Graveyard Export/gLTF/Ground_2_5.glb" id="6_jv5oe"]
+[ext_resource type="PackedScene" uid="uid://osvrvo2cfs2e" path="res://Content/Graveyard Export/gLTF/Ground_2_2.glb" id="7_3qemv"]
+[ext_resource type="PackedScene" uid="uid://d814wvni7obo" path="res://Content/Graveyard Export/gLTF/Ground_2_1.glb" id="8_cintb"]
+[ext_resource type="PackedScene" uid="uid://bq6jy1etg7nve" path="res://Content/Graveyard Export/gLTF/Ground_1_5.glb" id="9_a1sre"]
+[ext_resource type="PackedScene" uid="uid://b5yoqlimhguex" path="res://Content/Graveyard Export/gLTF/Ground_1_4.glb" id="10_4pl00"]
+[ext_resource type="PackedScene" uid="uid://dm07msc8hifyx" path="res://Content/Levels/Player/Player_Character.tscn" id="11_vy1df"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_vy1df"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vy1df"]
+
+[sub_resource type="Curve3D" id="Curve3D_vy1df"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -24.639679, 22.367155, 3.8146973e-06, -6.0532646, 22.853685, -2.026558e-06, 6.0532646, -22.853685, 2.026558e-06, -0.06601143, 0.0732196, 5.841255e-06),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
 
 [node name="Node3D" type="Node3D"]
+
+[node name="Ground_4_32" parent="." instance=ExtResource("1_q5vny")]
+
+[node name="Ground_4_42" parent="." instance=ExtResource("2_vy1df")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="Ground_4_52" parent="." instance=ExtResource("3_2c0su")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
+
+[node name="Ground_4_22" parent="." instance=ExtResource("4_1s7jq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="Ground_3_12" parent="." instance=ExtResource("5_d3kkg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="Ground_2_52" parent="." instance=ExtResource("6_jv5oe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 4)
+
+[node name="Ground_2_22" parent="." instance=ExtResource("7_3qemv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+
+[node name="Ground_2_12" parent="." instance=ExtResource("8_cintb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 6)
+
+[node name="Ground_1_52" parent="." instance=ExtResource("9_a1sre")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 6)
+
+[node name="Ground_1_42" parent="." instance=ExtResource("10_4pl00")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 4)
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 33.46685, -0.75450337, 1.137335)
+use_collision = true
+mesh = SubResource("BoxMesh_vy1df")
+material = SubResource("StandardMaterial3D_vy1df")
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, -16.457918, -0.30507195, 1.137335)
+curve = SubResource("Curve3D_vy1df")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Path3D"]
+transform = Transform3D(1.5690823, 0, 0, 0, 1.4548907, 0, 0, 1.4210855e-14, 2.2456276, -0.92150307, -0.34439963, 0)
+use_collision = true
+polygon = PackedVector2Array(0.5, 0, 0, 1, 1, 1)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = true
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("11_vy1df")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0218726, 1.994934, 4.324255)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.3436925, -0.7759281, 0.5289718, 0, 0.5632858, 0.82626206, -0.9390822, -0.28398007, 0.19359712, 0, 5.0259967, 1.137335)
