@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cbrofrsicobv8"]
+[gd_scene load_steps=19 format=3 uid="uid://cbrofrsicobv8"]
 
 [ext_resource type="PackedScene" uid="uid://dkip12egxfhpo" path="res://Content/Graveyard Export/gLTF/Ground_4_3.glb" id="1_q5vny"]
 [ext_resource type="PackedScene" uid="uid://drgqr2ss2po3n" path="res://Content/Graveyard Export/gLTF/Ground_4_4.glb" id="2_vy1df"]
@@ -11,11 +11,35 @@
 [ext_resource type="PackedScene" uid="uid://bq6jy1etg7nve" path="res://Content/Graveyard Export/gLTF/Ground_1_5.glb" id="9_a1sre"]
 [ext_resource type="PackedScene" uid="uid://b5yoqlimhguex" path="res://Content/Graveyard Export/gLTF/Ground_1_4.glb" id="10_4pl00"]
 [ext_resource type="PackedScene" uid="uid://dm07msc8hifyx" path="res://Content/Levels/Player/Player_Character.tscn" id="11_vy1df"]
+[ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://Content/Script/CSGStairMaker3D.tscn" id="12_2c0su"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_vy1df"]
-size = Vector3(100, 1, 100)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vy1df"]
+sky_top_color = Color(0.14206785, 0.1371122, 0.24072027, 1)
+sky_horizon_color = Color(0.2719011, 0.16498801, 0.16253716, 1)
+ground_bottom_color = Color(0.16550213, 0.14740855, 0.08511054, 1)
+ground_horizon_color = Color(0.13375229, 0.15096307, 0.060084067, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vy1df"]
+[sub_resource type="Sky" id="Sky_vy1df"]
+sky_material = SubResource("ProceduralSkyMaterial_vy1df")
+
+[sub_resource type="Environment" id="Environment_2c0su"]
+background_mode = 2
+sky = SubResource("Sky_vy1df")
+tonemap_mode = 3
+fog_mode = 1
+fog_light_color = Color(0.2300817, 0.20637721, 0.3260542, 1)
+fog_light_energy = 0.83
+fog_sun_scatter = 0.08
+fog_density = 1.0
+fog_depth_curve = 1.1095697
+fog_depth_begin = 30.0
+volumetric_fog_enabled = true
+volumetric_fog_albedo = Color(0.50421095, 0.4980213, 0.6255084, 1)
+volumetric_fog_emission = Color(0.15348855, 0.15168601, 0.20927933, 1)
+volumetric_fog_emission_energy = 0.1
+volumetric_fog_length = 128.0
+volumetric_fog_ambient_inject = 0.25
+adjustment_enabled = true
 
 [sub_resource type="Curve3D" id="Curve3D_vy1df"]
 _data = {
@@ -24,48 +48,28 @@ _data = {
 }
 point_count = 2
 
+[sub_resource type="BoxMesh" id="BoxMesh_vy1df"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vy1df"]
+
 [node name="Node3D" type="Node3D"]
 
-[node name="Ground_4_32" parent="." instance=ExtResource("1_q5vny")]
+[node name="WorldLighting" type="Node" parent="."]
 
-[node name="Ground_4_42" parent="." instance=ExtResource("2_vy1df")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="WorldLighting"]
+environment = SubResource("Environment_2c0su")
 
-[node name="Ground_4_52" parent="." instance=ExtResource("3_2c0su")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldLighting"]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+visible = false
+shadow_enabled = true
 
-[node name="Ground_4_22" parent="." instance=ExtResource("4_1s7jq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
-
-[node name="Ground_3_12" parent="." instance=ExtResource("5_d3kkg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
-
-[node name="Ground_2_52" parent="." instance=ExtResource("6_jv5oe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 4)
-
-[node name="Ground_2_22" parent="." instance=ExtResource("7_3qemv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
-
-[node name="Ground_2_12" parent="." instance=ExtResource("8_cintb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 6)
-
-[node name="Ground_1_52" parent="." instance=ExtResource("9_a1sre")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 6)
-
-[node name="Ground_1_42" parent="." instance=ExtResource("10_4pl00")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 4)
-
-[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 33.46685, -0.75450337, 1.137335)
-use_collision = true
-mesh = SubResource("BoxMesh_vy1df")
-material = SubResource("StandardMaterial3D_vy1df")
-
-[node name="Path3D" type="Path3D" parent="."]
+[node name="SurfTest" type="Path3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, -16.457918, -0.30507195, 1.137335)
 curve = SubResource("Curve3D_vy1df")
 
-[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Path3D"]
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="SurfTest"]
 transform = Transform3D(1.5690823, 0, 0, 0, 1.4548907, 0, 0, 1.4210855e-14, 2.2456276, -0.92150307, -0.34439963, 0)
 use_collision = true
 polygon = PackedVector2Array(0.5, 0, 0, 1, 1, 1)
@@ -84,5 +88,60 @@ path_joined = false
 [node name="CharacterBody3D" parent="." instance=ExtResource("11_vy1df")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0218726, 1.994934, 4.324255)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.3436925, -0.7759281, 0.5289718, 0, 0.5632858, 0.82626206, -0.9390822, -0.28398007, 0.19359712, 0, 5.0259967, 1.137335)
+[node name="Ground" type="Node3D" parent="."]
+
+[node name="Ground_4_32" parent="Ground" instance=ExtResource("1_q5vny")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.59320605, 0)
+
+[node name="Ground_4_42" parent="Ground" instance=ExtResource("2_vy1df")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.59320605, 0)
+
+[node name="Ground_4_52" parent="Ground" instance=ExtResource("3_2c0su")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.59320605, 2)
+
+[node name="Ground_4_22" parent="Ground" instance=ExtResource("4_1s7jq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.59320605, 2)
+
+[node name="Ground_3_12" parent="Ground" instance=ExtResource("5_d3kkg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.59320605, 4)
+
+[node name="Ground_2_52" parent="Ground" instance=ExtResource("6_jv5oe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.59320605, 4)
+
+[node name="Ground_2_22" parent="Ground" instance=ExtResource("7_3qemv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.59320605, 6)
+
+[node name="Ground_2_12" parent="Ground" instance=ExtResource("8_cintb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.59320605, 6)
+
+[node name="Ground_1_52" parent="Ground" instance=ExtResource("9_a1sre")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -0.59320605, 6)
+
+[node name="Ground_1_42" parent="Ground" instance=ExtResource("10_4pl00")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -0.59320605, 4)
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 33.46685, -0.75450337, 1.137335)
+use_collision = true
+mesh = SubResource("BoxMesh_vy1df")
+material = SubResource("StandardMaterial3D_vy1df")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Ground/CSGMesh3D"]
+transform = Transform3D(1, 0, 0, 0, -4.371138e-08, -1, 0, 1, -4.371138e-08, -32.066326, -2.7661417, 14.010555)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1839905, 2.1320317, -14.100423)
+use_collision = true
+size = Vector3(9.002869, 0.24987793, 11.942383)
+
+[node name="CSGStairMaker3D" parent="." instance=ExtResource("12_2c0su")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.86087424, 0.9295182, -6.675089)
+use_collision = true
+size = Vector3(2.9431458, 2.368042, 3)
+num_stairs = 11
+
+[node name="CSGStairMaker3D2" parent="." instance=ExtResource("12_2c0su")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.2316303, 0.9295182, -6.675089)
+use_collision = true
+size = Vector3(2.9431458, 2.368042, 3)
+num_stairs = 11
