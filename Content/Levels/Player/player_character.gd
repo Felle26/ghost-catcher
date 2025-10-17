@@ -24,6 +24,11 @@ var headbob_time : float = 0.0
 
 var wish_dir : Vector3 = Vector3.ZERO
 var cam_aligned_wish_dir : Vector3 = Vector3.ZERO
+
+const CROUCH_TRANSLATE : float = 0.7
+const CROUCH_JUMP_ADD : float = CROUCH_TRANSLATE * 0.9
+var is_crouched : bool = false
+
 var noclip_speed_mult : float = 3.0
 var noclip : bool = false
 
@@ -32,6 +37,8 @@ var _snapped_to_stairs_last_frame : bool = false
 var _last_frame_was_on_floor = -INF
 
 func get_move_speed() -> float:
+	if is_crouched:
+		return walk_speed * 0.8
 	return sprint_speed if Input.is_action_pressed("MOVE_SPRINT") else walk_speed
 	
 
@@ -140,6 +147,29 @@ func _snap_up_stairs_check(delta) -> bool:
 			_snapped_to_stairs_last_frame = true
 			return true
 	return false
+#crouching
+@onready var _original_capsule_height = $CollisionShape3D.shape.height
+func _handle_crouch(delta : float) -> void:
+	var was_crouched_last_frame : bool = is_crouched
+	if Input.is_action_pressed("MOVE_CROUCH"):
+		is_crouched = true
+	elif is_crouched and not self.test_move(self.transform, Vector3(0, CROUCH_TRANSLATE, 0)):
+		is_crouched = false
+		
+		var translate_y_if_possible := 0.0
+		if was_crouched_last_frame != is_crouched and not is_on_floor() and not _snapped_to_stairs_last_frame:
+			translate_y_if_possible = CROUCH_JUMP_ADD if is_crouched else -CROUCH_JUMP_ADD
+		if translate_y_if_possible != 0.0:
+			var result = KinematicCollision3D.new()
+			self.test_move(self.transform, Vector3(0, translate_y_if_possible, 0), result)
+			self.position.y += result.get_travel().y
+			%Head.position.y -= result.get_travel().y
+			%Head.position.y = clampf(%Head.position.y, -CROUCH_TRANSLATE, 0)
+		
+	%Head.position.y = move_toward(%Head.position.y, -(CROUCH_TRANSLATE / 2) if is_crouched else 0, 7.0 * delta)  #umbau von CROUCH_TRANSLATE zu (CROUCH_TRANSLATE / 2 [= 0.35]) wegen Player Character fehler vom mir
+	$CollisionShape3D.shape.height = _original_capsule_height - (CROUCH_TRANSLATE + 0.2) if is_crouched else _original_capsule_height #umbau von CROUCH_TRANSLATE zu (CROUCH_TRANSLATE + 0.2) wegen Player Character fehler vom mir
+	$CollisionShape3D.position.y = $CollisionShape3D.shape.height / 2
+	
 	
 #Noclip Debug Function
 func _handle_noclip(delta : float) -> bool:
@@ -211,11 +241,14 @@ func _handle_air_physics(delta:float) ->void:
 		self.velocity += accel_speed * wish_dir
 	
 	if is_on_wall():
-		if is_surface_too_steep(get_wall_normal()):
+		
+		var wall_normal = get_wall_normal()
+		var is_wall_vertical = abs(wall_normal.dot(Vector3.UP)) < 0.1
+		if is_surface_too_steep(wall_normal) and not is_wall_vertical:
 			self.motion_mode = CharacterBody3D.MOTION_MODE_FLOATING 
 		else:
 			self.motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
-		clip_velocity(get_wall_normal(), 1, delta)
+		clip_velocity(wall_normal, 1, delta)
 			
 
 func _physics_process(delta: float) -> void:
@@ -224,6 +257,8 @@ func _physics_process(delta: float) -> void:
 	var input_dir = Input.get_vector("MOVE_LEFT","MOVE_RIGHT","MOVE_FORWARD","MOVE_BACKWARD").normalized()
 	wish_dir = self.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)
 	cam_aligned_wish_dir = %Camera3D.global_transform.basis * Vector3(input_dir.x, 0., input_dir.y)
+	
+	_handle_crouch(delta)
 	
 	if not _handle_noclip(delta):
 		if is_on_floor() or _snapped_to_stairs_last_frame:
@@ -239,3 +274,5 @@ func _physics_process(delta: float) -> void:
 	
 	_slide_camera_smooth_back_to_origin(delta)
 		
+		
+#SONSTIGER CUSTOM STUFF FLASHLIGHT ETC.

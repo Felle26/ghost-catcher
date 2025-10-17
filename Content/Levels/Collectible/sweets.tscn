@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://drabx1qoglmy8"]
+
+[ext_resource type="Script" uid="uid://c7i1d3rkcldox" path="res://Content/Levels/Collectible/sweets.gd" id="1_xo2dr"]
+[ext_resource type="PackedScene" uid="uid://ivgnmvvujyew" path="res://Content/KayKit_HalloweenBits_1.0_EXTRA/Assets/gltf/candy_pink_A.gltf" id="2_lyhu5"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xo2dr"]
+radius = 0.35580114
+
+[node name="Sweets" type="Node3D"]
+script = ExtResource("1_xo2dr")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.77907, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1669823, 0)
+shape = SubResource("SphereShape3D_xo2dr")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0007603, 0)
+light_color = Color(0.5448663, 0.19165519, 0.43205637, 1)
+light_energy = 0.505
+light_specular = 0.0
+omni_range = 1.382
+
+[node name="candy_pink_A2" parent="." instance=ExtResource("2_lyhu5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40809005, 0)
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
