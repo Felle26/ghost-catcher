@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://d0dpkgyrgnmke"
-path="res://.godot/imported/tree_dead_large.gltf-7d55443cfbfc30e48afb8215f87dfc5d.scn"
+uid="uid://bdob1l0ay30tg"
+path="res://.godot/imported/path-long.glb-73df7d81114c06b17fa3d5529fe8149c.scn"
 
 [deps]
 
-source_file="res://Content/KayKit_HalloweenBits_1.0_EXTRA/Assets/gltf/tree_dead_large.gltf"
-dest_files=["res://.godot/imported/tree_dead_large.gltf-7d55443cfbfc30e48afb8215f87dfc5d.scn"]
+source_file="res://Content/Kenneys/city/path-long.glb"
+dest_files=["res://.godot/imported/path-long.glb-73df7d81114c06b17fa3d5529fe8149c.scn"]
 
 [params]
 
@@ -39,9 +39,8 @@ materials/extract_format=0
 materials/extract_path=""
 _subresources={
 "nodes": {
-"PATH:tree_dead_large": {
-"generate/physics": true,
-"physics/shape_type": 0
+"PATH:path-long": {
+"generate/physics": true
 }
 }
 }
