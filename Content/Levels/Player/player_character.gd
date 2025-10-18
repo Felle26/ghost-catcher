@@ -36,6 +36,13 @@ const MAX_STEP_HEIGHT : float = 0.5
 var _snapped_to_stairs_last_frame : bool = false
 var _last_frame_was_on_floor = -INF
 
+#custom variables
+var max_health : int = 100
+var current_health : int = 100
+
+const POINT_RESEST : int = 0
+var current_points = POINT_RESEST
+
 func get_move_speed() -> float:
 	if is_crouched:
 		return walk_speed * 0.8
@@ -276,3 +283,16 @@ func _physics_process(delta: float) -> void:
 		
 		
 #SONSTIGER CUSTOM STUFF FLASHLIGHT ETC.
+
+func hit(dmg : int, type : String) -> void:
+	if current_health > 0:
+		current_health -= dmg
+		print_debug("type:" + type)
+		print_debug(current_health)
+	else:
+		print_debug("You´re Dead")
+		current_points = POINT_RESEST
+		
+func collect_item(points: int) -> void:
+	current_points += points
+	print_debug(current_points)
