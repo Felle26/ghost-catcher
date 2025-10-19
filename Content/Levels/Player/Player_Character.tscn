@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dm07msc8hifyx"]
+[gd_scene load_steps=5 format=3 uid="uid://dm07msc8hifyx"]
 
 [ext_resource type="Script" uid="uid://c8yegsvkqvh27" path="res://Content/Levels/Player/player_character.gd" id="1_l86mc"]
+[ext_resource type="PackedScene" uid="uid://pid328xkpec4" path="res://Content/Levels/maps/content/ui/ui.tscn" id="2_x2e2v"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nl0bo"]
 
@@ -43,6 +44,14 @@ shadow_enabled = true
 distance_fade_enabled = true
 spot_range = 24.004122
 spot_angle_attenuation = 3.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="HeadOriginalPosition/Head/CameraSmooth/Camera3D"]
+
+[node name="Control" parent="HeadOriginalPosition/Head/CameraSmooth/Camera3D/CanvasLayer" instance=ExtResource("2_x2e2v")]
+offset_left = 1209.53
+offset_top = 109.48576
+offset_right = 1209.53
+offset_bottom = 109.48578
 
 [node name="StairsAheadRayCast3D" type="RayCast3D" parent="."]
 unique_name_in_owner = true

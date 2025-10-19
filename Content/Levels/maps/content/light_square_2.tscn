@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b80rikodxxpfh"]
+
+[ext_resource type="PackedScene" uid="uid://jgp455g51pxj" path="res://Content/Kenneys/road/light-square.glb" id="1_np3os"]
+
+[node name="light-square2" instance=ExtResource("1_np3os")]
+
+[node name="light-square" parent="." index="0"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="light-square" index="1"]
+transform = Transform3D(0.2, 0, 0, 0, -8.742279e-09, 0.2, 0, -0.2, -8.742279e-09, 0, 0.56, -0.2)

@@ -1,0 +1,111 @@
+[gd_scene load_steps=5 format=3 uid="uid://pid328xkpec4"]
+
+[ext_resource type="Theme" uid="uid://06m3fgjmutur" path="res://Content/Fonts/ui.tres" id="1_xijlb"]
+
+[sub_resource type="Animation" id="Animation_xijlb"]
+resource_name = "Fade Information"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Game_info:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Game_info:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2, 2.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3w1do"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Game_info:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Game_info:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_88rnc"]
+_data = {
+&"Fade Information": SubResource("Animation_xijlb"),
+&"RESET": SubResource("Animation_3w1do")
+}
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="Game_info" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -229.0
+offset_top = -110.0
+offset_right = 224.5
+offset_bottom = 175.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_xijlb")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 50
+text = "Collect all the candy... but beware the ghost is following you."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="candie_count" type="Label" parent="."]
+offset_left = 940.0
+offset_top = 27.0
+offset_right = 1253.0
+offset_bottom = 151.0
+theme = ExtResource("1_xijlb")
+text = "###/###"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Health_count" type="Label" parent="."]
+offset_left = 26.0
+offset_top = 597.0
+offset_right = 363.0
+offset_bottom = 697.0
+theme = ExtResource("1_xijlb")
+text = "+100"
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_88rnc")
+}
+autoplay = "Fade Information"
