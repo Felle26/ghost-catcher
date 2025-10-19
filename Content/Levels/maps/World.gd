@@ -8,5 +8,5 @@ func _ready() -> void:
 	for child in get_node("Collectible").get_children():
 		current_collectibles_in_scene += 1
 	
-	print(current_collectibles_in_scene)
+	Global.actual_candy_in_scene = current_collectibles_in_scene
 	

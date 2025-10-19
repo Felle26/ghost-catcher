@@ -50,6 +50,7 @@ func get_move_speed() -> float:
 	
 
 func _ready() -> void:
+	Global.current_player_health = current_health
 	for child in %WorldModel.find_children("*", "VisualInstance3D"):
 		child.set_layer_mask_value(1, false)
 		child.set_layer_mask_value(2, true)
@@ -289,6 +290,7 @@ func hit(dmg : int, type : String) -> void:
 		current_health -= dmg
 		print_debug("type:" + type)
 		print_debug(current_health)
+		Global.current_player_health = current_health
 	else:
 		print_debug("You´re Dead")
 		current_points = POINT_RESEST

@@ -85,6 +85,9 @@ light_color = Color(0.5448663, 0.19165519, 0.43205637, 1)
 light_energy = 0.505
 light_indirect_energy = 3.804
 light_specular = 0.0
+distance_fade_enabled = true
+distance_fade_begin = 10.0
+distance_fade_shadow = 0.0
 omni_range = 1.0353448
 
 [node name="candy_pink_A2" parent="." instance=ExtResource("2_lyhu5")]
