@@ -100,6 +100,7 @@ func _handle_controller_look_input(delta : float) -> void:
 func _process(delta: float) -> void:
 	if current_health == 0:
 		Global.player_is_dead = true
+		
 	_handle_controller_look_input(delta)
 	play_footsteps()
 	
@@ -305,6 +306,7 @@ func hit(dmg : int, type : String) -> void:
 	else:
 		print_debug("You´re Dead")
 		current_points = POINT_RESEST
+		$reload_menu_timer.start()
 		
 func collect_item(points: int) -> void:
 	current_points += points
@@ -327,3 +329,9 @@ func random_volume_for_footsteps():
 
 func _on_timer_timeout() -> void:
 	random_volume_for_footsteps()
+
+
+func _on_reload_menu_timer_timeout() -> void:
+	get_tree().change_scene_to_file("res://Content/Levels/menu/mainmenu.tscn")
+	Global.player_is_dead = false
+	Global.current_points = 0

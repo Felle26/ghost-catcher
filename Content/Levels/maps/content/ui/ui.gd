@@ -1,6 +1,5 @@
 extends CanvasLayer
 
-
 func _ready() -> void:
 	$candie_count.text = str(0)
 	$Health_count.text = "+" + str(100)
@@ -12,9 +11,11 @@ func _process(_delta):
 		$Game_info.text = "Boooh...."
 		$AnimationPlayer.play("Fade Information")
 		
+		
 	elif Global.current_points == 40:
 		$Game_info.text = "The Ghost get´s stronger"
 		$AnimationPlayer.play("Fade Information")
+		
 	
 	elif Global.current_points == 60:
 		$Game_info.text = "Little spookey Jumpscare"
@@ -39,12 +40,3 @@ func _process(_delta):
 	elif Global.Finished == true:
 		$Game_info.text = "You Have Collected all Candies and Finished the Game"
 		$AnimationPlayer.play("Fade Information")
-	
-	elif Global.current_player_health <= 0:
-		$Game_info.text = "You´re DEAD"
-		$Timer.start()
-	
-
-
-func _on_timer_timeout() -> void:
-	get_tree().change_scene_to_file("res://Content/Levels/menu/mainmenu.tscn")
