@@ -38,8 +38,7 @@ var _last_frame_was_on_floor = -INF
 
 #custom variables
 var move_ckeck = null
-var last_bob_position_x: float = 0.0
-var last_bob_direction: int = 0
+var random_footstep_volume: float = 0.0
 
 var max_health : int = 100
 var current_health : int = 100
@@ -54,6 +53,7 @@ func get_move_speed() -> float:
 	
 
 func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	Global.current_player_health = current_health
 	for child in %WorldModel.find_children("*", "VisualInstance3D"):
 		child.set_layer_mask_value(1, false)
@@ -69,7 +69,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event is InputEventMouseMotion:
 			rotate_y(-event.relative.x * look_sensitivity)
 			%Camera3D.rotate_x(-event.relative.y * look_sensitivity)
-			%Camera3D.rotation.x = clamp(%Camera3D.rotation.x, deg_to_rad(-80), deg_to_rad(80))
+		%Camera3D.rotation.x = clamp(%Camera3D.rotation.x, deg_to_rad(-80), deg_to_rad(80)) ## -80 , 80
 			
 	if event is InputEventMouseButton and event.is_pressed():
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
@@ -98,6 +98,8 @@ func _handle_controller_look_input(delta : float) -> void:
 
 
 func _process(delta: float) -> void:
+	if current_health == 0:
+		Global.player_is_dead = true
 	_handle_controller_look_input(delta)
 	play_footsteps()
 	
@@ -309,7 +311,19 @@ func collect_item(points: int) -> void:
 	print_debug(current_points)
 	
 func play_footsteps() -> void:
+	$footsteps/Timer.start()
 	if move_ckeck and is_on_floor():
-		$footsteps.volume_db = -18.75
+		
+		
+		$footsteps.volume_db = -30
+		
 	else:
 		$footsteps.volume_db = -100
+		
+func random_volume_for_footsteps():
+	random_footstep_volume = randf() * -20
+	return random_footstep_volume
+
+
+func _on_timer_timeout() -> void:
+	random_volume_for_footsteps()

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqnhsxlnwjlke"]
+
+[ext_resource type="PackedScene" uid="uid://doop7cj1dv47b" path="res://Content/KayKit_HalloweenBits_1.0_EXTRA/Assets/gltf/lantern_standing.gltf" id="1_m7hf2"]
+
+[node name="lantern_standing2" instance=ExtResource("1_m7hf2")]
+
+[node name="lantern_standing" parent="." index="0"]
+cast_shadow = 0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+light_color = Color(0.65056574, 0.49649084, 0.22724006, 1)
+shadow_enabled = true

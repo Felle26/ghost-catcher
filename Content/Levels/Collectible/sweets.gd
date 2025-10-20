@@ -7,8 +7,10 @@ func _ready() -> void:
 
 
 func _on_area_3d_body_entered(_body: Node3D) -> void:
-	$pickupSound.play()
-	$Timer.start()
+	if _body.name == "Player":
+		print_debug("Player Picked up")
+		$pickupSound.play()
+		$Timer.start()
 
 
 func _destroy_sweets() -> void:

@@ -10,3 +10,8 @@ func _ready() -> void:
 	
 	Global.actual_candy_in_scene = current_collectibles_in_scene
 	
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if body.name == "Player" and (Global.current_points == Global.actual_candy_in_scene):
+		Global.Finished = true

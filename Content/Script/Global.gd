@@ -2,6 +2,8 @@ extends Node
 
 var current_points : int = 0
 var actual_candy_in_scene : int = 0
+var Finished : bool = false
+var player_is_dead : bool = false
 
 var current_player_health: int = 0
 

@@ -1,0 +1,72 @@
+[gd_scene load_steps=3 format=3 uid="uid://bu7318768plmi"]
+
+[ext_resource type="Script" uid="uid://dhiv2pg4m32vd" path="res://mainmenu.gd" id="1_vifvs"]
+[ext_resource type="Theme" uid="uid://06m3fgjmutur" path="res://Content/Fonts/ui.tres" id="2_c7dmm"]
+
+[node name="mainmenu" type="CanvasLayer"]
+script = ExtResource("1_vifvs")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1290.0
+offset_bottom = 730.0
+color = Color(0.09239707, 0.09239706, 0.09239706, 1)
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 801.0
+offset_top = 535.99994
+offset_right = 1210.0
+offset_bottom = 689.99994
+rotation = -0.29729113
+theme = ExtResource("2_c7dmm")
+theme_override_font_sizes/font_size = 36
+text = "W / A / S / D for Movement
+Spacebar for Jump
+C for Crouching"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 11.9999695
+offset_top = 221.0
+offset_right = 718.0
+offset_bottom = 421.0
+rotation = -0.29729113
+theme = ExtResource("2_c7dmm")
+theme_override_font_sizes/font_size = 161
+text = "Candy Catch"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -98.0
+offset_top = -54.0
+offset_right = 105.66669
+offset_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_c7dmm")
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_hover_color = Color(0.6907002, 0.63470703, 0.64123553, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 80
+text = "Start Game"
+flat = true
+
+[node name="Button2" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_c7dmm")
+theme_override_colors/font_hover_color = Color(0.6901961, 0.63529414, 0.6431373, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Exit"
+flat = true
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
