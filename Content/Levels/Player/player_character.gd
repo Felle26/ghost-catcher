@@ -12,11 +12,11 @@ const HEADBOB_FREQUENCY : float = 2.4
 var headbob_time : float = 0.0
 
 #Ground Movement settings
-@export var walk_speed : float = 7.0
-@export var sprint_speed : float = 8.5
+@export var walk_speed : float = 4.0 # 7.0 standard
+@export var sprint_speed : float = 5.5 # 8.5 standard
 @export var ground_Accel : float = 14.0
 @export var ground_decel : float = 10.0
-@export var ground_friction : float = 6.0
+@export var ground_friction : float = 3.0 #friction 6.0 standard
 
 @export var air_cap : float = 0.85
 @export var air_accel : float = 800.0
@@ -37,6 +37,10 @@ var _snapped_to_stairs_last_frame : bool = false
 var _last_frame_was_on_floor = -INF
 
 #custom variables
+var move_ckeck = null
+var last_bob_position_x: float = 0.0
+var last_bob_direction: int = 0
+
 var max_health : int = 100
 var current_health : int = 100
 
@@ -95,6 +99,7 @@ func _handle_controller_look_input(delta : float) -> void:
 
 func _process(delta: float) -> void:
 	_handle_controller_look_input(delta)
+	play_footsteps()
 	
 var _saved_camera_global_pos = null
 
@@ -198,7 +203,7 @@ func _handle_noclip(delta : float) -> bool:
 	return true
 	
 	
-func clip_velocity(normal: Vector3, overbounce : float, delta : float) -> void:
+func clip_velocity(normal: Vector3, overbounce : float, _delta : float) -> void:
 	var backoff := self.velocity.dot(normal) * overbounce
 	if backoff >= 0: return
 	
@@ -263,9 +268,13 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor(): _last_frame_was_on_floor = Engine.get_physics_frames()
 	
 	var input_dir = Input.get_vector("MOVE_LEFT","MOVE_RIGHT","MOVE_FORWARD","MOVE_BACKWARD").normalized()
+	#Check if Player is moving
+	if input_dir != Vector2(0.0, 0.0):
+		move_ckeck = true
+	else:
+		move_ckeck = false
 	wish_dir = self.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)
 	cam_aligned_wish_dir = %Camera3D.global_transform.basis * Vector3(input_dir.x, 0., input_dir.y)
-	
 	_handle_crouch(delta)
 	
 	if not _handle_noclip(delta):
@@ -298,3 +307,9 @@ func hit(dmg : int, type : String) -> void:
 func collect_item(points: int) -> void:
 	current_points += points
 	print_debug(current_points)
+	
+func play_footsteps() -> void:
+	if move_ckeck and is_on_floor():
+		$footsteps.volume_db = -18.75
+	else:
+		$footsteps.volume_db = -100

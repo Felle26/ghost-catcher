@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://drabx1qoglmy8"]
+[gd_scene load_steps=8 format=3 uid="uid://drabx1qoglmy8"]
 
 [ext_resource type="Script" uid="uid://c7i1d3rkcldox" path="res://Content/Levels/Collectible/sweets.gd" id="1_xo2dr"]
 [ext_resource type="PackedScene" uid="uid://ivgnmvvujyew" path="res://Content/KayKit_HalloweenBits_1.0_EXTRA/Assets/gltf/candy_pink_A.gltf" id="2_lyhu5"]
+[ext_resource type="AudioStream" uid="uid://sy6babvrugy2" path="res://Content/audio/pickupCoin.wav" id="3_knnhk"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xo2dr"]
 radius = 0.20277563
@@ -99,4 +100,13 @@ libraries = {
 }
 autoplay = "idle"
 
+[node name="pickupSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_knnhk")
+volume_db = -9.6
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

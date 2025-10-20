@@ -3,7 +3,7 @@ extends CharacterBody3D
 var player = null
 var state_machine
 
-const SPEED : float = 4.0
+const SPEED : float = 3.9 #4.0 standard speed
 const ATTACK_RANGE : float = 2.5
 
 
@@ -16,7 +16,7 @@ func _ready() -> void:
 	state_machine = anim_tree.get("parameters/playback")
 	
 	
-func _process(delta : float) -> void:
+func _process(_delta : float) -> void:
 	velocity = Vector3.ZERO
 	
 	match state_machine.get_current_node():
@@ -40,4 +40,5 @@ func _target_in_range() -> bool:
 	return global_position.distance_to(player.global_position) < ATTACK_RANGE
 	
 func _hit_finished() ->void:
+	$ghostAttack.play()
 	player.hit(5, "ghost")

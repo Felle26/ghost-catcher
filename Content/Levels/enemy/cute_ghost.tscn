@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=4 uid="uid://cormnbaogvxtl"]
+[gd_scene load_steps=19 format=4 uid="uid://cormnbaogvxtl"]
 
 [ext_resource type="Texture2D" uid="uid://ch5ftia7btw32" path="res://Content/CuteGhost/Cute Ghost_Ghost_Diffuse.png" id="1_2usig"]
 [ext_resource type="Script" uid="uid://cfm6hbatx6lc1" path="res://Content/Levels/enemy/cute_ghost.gd" id="1_v61fo"]
+[ext_resource type="AudioStream" uid="uid://cqjwfa4stm516" path="res://Content/audio/ghost_attack.mp3" id="3_dbww1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_htkhm"]
 resource_name = "Material"
@@ -438,3 +439,6 @@ tree_root = SubResource("AnimationNodeStateMachine_bc0se")
 anim_player = NodePath("../Node3D/Sphere/AnimationPlayer")
 parameters/conditions/attack = false
 parameters/conditions/walk = false
+
+[node name="ghostAttack" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_dbww1")
